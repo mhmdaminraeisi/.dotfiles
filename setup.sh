@@ -13,7 +13,7 @@ printf "\n★ installing dnf updates\n"
 sudo dnf update -y
 
 printf "\n★ add rpm fusion\n"
-sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$(rpm -E %fedora)".noarch.rpm
+sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$(rpm -E %fedora)".noarch.rpm
 sudo dnf makecache
 
 printf "\n★ installing dnf packages\n"
@@ -81,7 +81,7 @@ printf "\n★ changing gnome settings\n"
 settings=(
   "org.gnome.TextEditor spellcheck false"
   "org.gnome.calculator show-thousands true"
-  "org.gnome.desktop.input-sources sources [('xkb', 'us'), ('xkb', 'ir')]"
+  "org.gnome.desktop.input-sources sources [('xkb','us'),('xkb','ir')]"
   "org.gnome.desktop.input-sources per-window true"
   "org.gnome.desktop.input-sources xkb-options ['caps:escape_shifted_capslock']"
   "org.gnome.desktop.interface clock-format '12h'"
@@ -91,16 +91,16 @@ settings=(
   "org.gnome.desktop.peripherals.touchpad natural-scroll false"
   "org.gnome.desktop.peripherals.touchpad tap-to-click true"
   "org.gnome.desktop.search-providers disabled ['org.gnome.Characters.desktop']"
-  "org.gnome.desktop.wm.keybindings activate-window-menu @as []"
-  "org.gnome.desktop.wm.keybindings minimize @as []"
+  "org.gnome.desktop.wm.keybindings activate-window-menu []"
+  "org.gnome.desktop.wm.keybindings minimize []"
   "org.gnome.desktop.wm.keybindings move-to-monitor-down ['<Shift><Super>j']"
-  "org.gnome.desktop.wm.keybindings move-to-monitor-left @as []"
-  "org.gnome.desktop.wm.keybindings move-to-monitor-right @as []"
+  "org.gnome.desktop.wm.keybindings move-to-monitor-left []"
+  "org.gnome.desktop.wm.keybindings move-to-monitor-right []"
   "org.gnome.desktop.wm.keybindings move-to-monitor-up ['<Shift><Super>k']"
   "org.gnome.desktop.wm.keybindings move-to-workspace-left ['<Shift><Super>h']"
   "org.gnome.desktop.wm.keybindings move-to-workspace-right ['<Shift><Super>l']"
-  "org.gnome.desktop.wm.keybindings switch-applications @as []"
-  "org.gnome.desktop.wm.keybindings switch-applications-backward @as []"
+  "org.gnome.desktop.wm.keybindings switch-applications []"
+  "org.gnome.desktop.wm.keybindings switch-applications-backward []"
   "org.gnome.desktop.wm.keybindings switch-input-source ['<Super>space']"
   "org.gnome.desktop.wm.keybindings switch-input-source-backward ['<Shift><Super>space']"
   "org.gnome.desktop.wm.keybindings switch-to-workspace-left ['<Super>h']"
@@ -111,22 +111,24 @@ settings=(
   "org.gnome.mutter center-new-windows true"
   "org.gnome.mutter dynamic-workspaces false"
   "org.gnome.mutter workspaces-only-on-primary false"
-  "org.gnome.rhythmbox.plugins seen-plugins ['grilo', 'rb', 'webremote', 'replaygain', 'rbzeitgeist', 'pythonconsole', 'notification', 'mtpdevice', 'ipod', 'fmradio', 'dbus-media-server', 'daap', 'cd-recorder', 'audioscrobbler', 'artsearch', 'im-status', 'listenbrainz', 'lyrics', 'magnatune']"
-  "org.gnome.rhythmbox.rhythmdb locations ['file:///home/amir/Music']"
+  "org.gnome.rhythmbox.plugins seen-plugins ['grilo','rb','webremote','replaygain','rbzeitgeist','pythonconsole','notification','mtpdevice','ipod','fmradio','dbus-media-server','daap','cd-recorder','audioscrobbler','artsearch','im-status','listenbrainz','lyrics','magnatune']"
+  "org.gnome.rhythmbox.rhythmdb locations ['file://$HOME/Music']"
   "org.gnome.settings-daemon.plugins.media-keys next ['<Super>F12']"
   "org.gnome.settings-daemon.plugins.media-keys play ['<Super>F10']"
   "org.gnome.settings-daemon.plugins.media-keys previous ['<Super>F11']"
-  "org.gnome.settings-daemon.plugins.media-keys screensaver @as []"
-  "org.gnome.shell favorite-apps ['firefox.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop', 'code.desktop', 'telegram-desktop_telegram-desktop.desktop']"
+  "org.gnome.settings-daemon.plugins.media-keys screensaver []"
+  "org.gnome.shell favorite-apps ['firefox.desktop','org.gnome.Nautilus.desktop','org.gnome.Terminal.desktop','code.desktop','telegram-desktop_telegram-desktop.desktop']"
   "org.gnome.shell.app-switcher current-workspace-only true"
-  "org.gnome.shell.extensions.appindicator tray-pos 'right'"
-  "org.gnome.shell.keybindings open-application-menu @as []"
+  "org.gnome.shell.extensions.appindicator tray-pos right"
+  "org.gnome.shell.keybindings open-application-menu []"
   "org.gnome.tweaks show-extensions-notice false"
   "org.gtk.Settings.FileChooser clock-format '12h'"
 )
 for setting in "${settings[@]}"; do
   gsettings set $setting
 done
+
+printf "\n★ setup zsh\n"
 
 printf "\n★ adding fonts\n"
 
