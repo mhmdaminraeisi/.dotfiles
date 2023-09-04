@@ -1,16 +1,22 @@
 #!/usr/bin/env bash
 
-printf "\n★ use dnf fastest mirror"
+trap "echo; exit" INT
+
+printf "★ use dnf fastest mirror\n"
 fastest_mirror="fastest_mirror=True"
 dnf_config="/etc/dnf/dnf.conf"
 if ! grep -q -F "$fastest_mirror" "$dnf_config"; then
   echo "$fastest_mirror" | sudo tee -a "$dnf_config" >/dev/null
 fi
 
-printf "\n★ installing dnf updates"
+printf "\n★ installing dnf updates\n"
 sudo dnf update -y
 
-printf "\n★ installing dnf packages"
+printf "\n★ add rpm fusion\n"
+sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$(rpm -E %fedora)".noarch.rpm
+sudo dnf makecache
+
+printf "\n★ installing dnf packages\n"
 sudo dnf install -y \
   vlc \
   zsh \
@@ -24,18 +30,18 @@ sudo dnf install -y \
   python3-pip \
   /
 
-printf "\n★ installing vscode"
+printf "\n★ installing vscode\n"
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
 sudo dnf makecache
 sudo dnf install -y code
 
-printf "\n★ installing github cli"
+printf "\n★ installing github cli\n"
 sudo dnf install -y 'dnf-command(config-manager)'
 sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
 sudo dnf install -y gh
 
-printf "\n★ installing snap packages"
+printf "\n★ installing snap packages\n"
 sudo ln -s /var/lib/snapd/snap /snap
 sudo snap install \
   skype \
@@ -46,12 +52,12 @@ sudo snap install \
   telegram-desktop \
   /
 
-printf "\n★ installing pip packages"
+printf "\n★ installing pip packages\n"
 python3 -m pip install --user pipx
 python3 -m pipx ensurepath
 pipx install spotdl
 
-printf "\n★ installing gnome extensions"
+printf "\n★ installing gnome extensions\n"
 pipx install gnome-extensions-cli --system-site-packages
 gext --filesystem install \
   activitiesworkspacename@ahmafi.ir \
@@ -71,7 +77,7 @@ gext --filesystem install \
   window-app-switcher-on-active-monitor@NiKnights.com \
   /
 
-printf "\n★ changing gnome settings"
+printf "\n★ changing gnome settings\n"
 settings=(
   "org.gnome.TextEditor spellcheck false"
   "org.gnome.calculator show-thousands true"
@@ -122,6 +128,6 @@ for setting in "${settings[@]}"; do
   gsettings set $setting
 done
 
-printf "\n★ adding fonts"
+printf "\n★ adding fonts\n"
 
-printf "\n★ interactive session ★"
+printf "\n★ interactive session ★\n"
