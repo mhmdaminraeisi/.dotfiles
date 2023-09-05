@@ -35,20 +35,31 @@ sudo dnf install -y \
   /
 
 printf "\n★ installing vscode\n"
-sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-sudo dnf makecache
-sudo dnf install -y code
+if ! command -v code $ >/dev/null; then
+  sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+  sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+  sudo dnf makecache
+  sudo dnf install -y code
+fi
 
 printf "\n★ installing fnm and node\n"
-curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell
-fnm completions --shell zsh | create "$HOME/.oh-my-zsh/completions/_fnm"
-fnm install --lts
+if ! command -v fnm $ >/dev/null; then
+  curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell
+  fnm completions --shell zsh | create "$HOME/.oh-my-zsh/completions/_fnm"
+  fnm install --lts
+fi
+
+printf "\n★ installing docker\n"
+if ! command -v docker $ >/dev/null; then
+  curl -fsSL https://get.docker.com | bash
+fi
 
 printf "\n★ installing github cli\n"
-sudo dnf install -y 'dnf-command(config-manager)'
-sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
-sudo dnf install -y gh
+if ! command -v gh $ >/dev/null; then
+  sudo dnf install -y 'dnf-command(config-manager)'
+  sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
+  sudo dnf install -y gh
+fi
 
 printf "\n★ installing snap packages\n"
 sudo ln -s /var/lib/snapd/snap /snap
@@ -61,13 +72,21 @@ sudo snap install \
   telegram-desktop \
   /
 
-printf "\n★ installing pip packages\n"
-python3 -m pip install --user pipx
-python3 -m pipx ensurepath
-pipx install spotdl
+printf "\n★ installing pipx\n"
+if ! command -v pipx $ >/dev/null; then
+  python3 -m pip install --user pipx
+  python3 -m pipx ensurepath
+fi
+
+printf "\n★ installing pipx packages\n"
+if ! command -v spotdl $ >/dev/null; then
+  pipx install spotdl
+fi
 
 printf "\n★ installing gnome extensions\n"
-pipx install gnome-extensions-cli --system-site-packages
+if ! command -v gext $ >/dev/null; then
+  pipx install gnome-extensions-cli --system-site-packages
+fi
 gext --filesystem install \
   activitiesworkspacename@ahmafi.ir \
   appindicatorsupport@rgcjonas.gmail.com \
