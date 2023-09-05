@@ -1,0 +1,10 @@
+{
+  "files.associations": {
+    ".functions": "shellscript",
+    ".aliases": "shellscript"
+  },
+  "shellcheck.ignorePatterns": {
+    "**/*.aliases": true,
+    "**/*.functions": true
+  }
+}

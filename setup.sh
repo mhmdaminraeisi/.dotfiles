@@ -32,6 +32,7 @@ sudo dnf install -y \
   obs-studio \
   snapd \
   python3-pip \
+  neovim \
   /
 
 printf "\n★ installing vscode\n"
