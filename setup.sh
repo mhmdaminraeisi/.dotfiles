@@ -2,6 +2,10 @@
 
 trap "echo; exit" INT
 
+create() {
+  mkdir -p -- "$(dirname "$1")" && cat >"$1"
+}
+
 printf "★ use dnf fastest mirror\n"
 fastest_mirror="fastest_mirror=True"
 dnf_config="/etc/dnf/dnf.conf"
@@ -35,6 +39,11 @@ sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
 sudo dnf makecache
 sudo dnf install -y code
+
+printf "\n★ installing fnm and node\n"
+curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell
+fnm completions --shell zsh | create "$HOME/.oh-my-zsh/completions/_fnm"
+fnm install --lts
 
 printf "\n★ installing github cli\n"
 sudo dnf install -y 'dnf-command(config-manager)'
@@ -129,6 +138,8 @@ for setting in "${settings[@]}"; do
 done
 
 printf "\n★ setup zsh\n"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+ln -s .zshrc "$HOME/.zshrc"
 
 printf "\n★ adding fonts\n"
 
