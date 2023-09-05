@@ -1,0 +1,7 @@
+[init]
+	defaultBranch = main
+[core]
+	editor = code --wait
+[user]
+	email = amir77mafi@gmail.com
+	name = Amirhossein Mafi

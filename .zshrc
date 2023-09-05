@@ -7,7 +7,7 @@ zstyle ':omz:update' frequency 12
 
 HIST_STAMPS="yyyy/mm/dd"
 
-plugins=(git)
+plugins=(git last-working-dir)
 
 source $ZSH/oh-my-zsh.sh
 

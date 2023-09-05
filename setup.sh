@@ -45,7 +45,6 @@ fi
 printf "\n★ installing fnm and node\n"
 if ! command -v fnm $ >/dev/null; then
   curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell
-  fnm completions --shell zsh | create "$HOME/.oh-my-zsh/completions/_fnm"
   fnm install --lts
 fi
 
@@ -157,8 +156,14 @@ for setting in "${settings[@]}"; do
 done
 
 printf "\n★ setup zsh\n"
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash
 ln -s .zshrc "$HOME/.zshrc"
+if command -v fnm $ >/dev/null; then
+  fnm completions --shell zsh | create "$HOME/.oh-my-zsh/completions/_fnm"
+fi
+
+printf "\n★ setup git\n"
+ln -s .gitconfig "$HOME/.gitconfig"
 
 printf "\n★ adding fonts\n"
 
