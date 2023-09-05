@@ -13,6 +13,14 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration -----------------------------------------------------------
 
+export EDITOR=code
+
+# aliases
+[[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
+
+# functions
+[[ -f "$HOME/.functions" ]] && source "$HOME/.functions"
+
 # fnm
 export PATH="/home/amir/.local/share/fnm:$PATH"
 eval "$(fnm env --use-on-cd)"

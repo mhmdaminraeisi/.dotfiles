@@ -158,6 +158,8 @@ done
 printf "\n★ setup zsh\n"
 curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash
 ln -s .zshrc "$HOME/.zshrc"
+ls -s .aliases "$HOME/.aliases"
+ls -s .functions "$HOME/.functions"
 if command -v fnm $ >/dev/null; then
   fnm completions --shell zsh | create "$HOME/.oh-my-zsh/completions/_fnm"
 fi
