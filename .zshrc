@@ -7,7 +7,7 @@ zstyle ':omz:update' frequency 12
 
 HIST_STAMPS="yyyy/mm/dd"
 
-plugins=(git last-working-dir)
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -29,3 +29,5 @@ eval "$(fnm env --use-on-cd)"
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+export CAPACITOR_ANDROID_STUDIO_PATH=$HOME/android-studio/bin/studio.sh
