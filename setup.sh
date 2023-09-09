@@ -45,7 +45,7 @@ fi
 
 printf "\n★ installing fnm and node\n"
 if ! command -v fnm $ >/dev/null; then
-  curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell
+  curl -fsSL https://fnm.vercel.app/install | bash
   fnm install --lts
 fi
 
@@ -153,7 +153,19 @@ settings=(
   "org.gtk.Settings.FileChooser clock-format '12h'"
 )
 for setting in "${settings[@]}"; do
+  # TODO: use eval here
   gsettings set $setting
+done
+
+printf "\n★ changing dconf settings\n"
+dconfSettings=(
+  "font \"'Monospace 14'\""
+  "custom-command \"'zsh'\""
+  "use-custom-command \"true\""
+  "use-system-font \"false\""
+)
+for setting in "${dconfSettings[@]}"; do
+  eval "dconf write /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/$setting"
 done
 
 printf "\n★ setup zsh\n"
