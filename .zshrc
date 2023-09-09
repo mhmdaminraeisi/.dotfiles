@@ -22,7 +22,7 @@ export EDITOR=code
 [[ -f "$HOME/.functions" ]] && source "$HOME/.functions"
 
 # fnm
-export PATH="/home/amir/.local/share/fnm:$PATH"
+export PATH="$HOME/.local/share/fnm:$PATH"
 eval "$(fnm env --use-on-cd)"
 
 # android
