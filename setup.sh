@@ -34,8 +34,7 @@ sudo dnf install -y \
   obs-studio \
   snapd \
   python3-pip \
-  neovim \
-  /
+  neovim
 
 printf "\n★ installing vscode\n"
 if ! command -v code $ >/dev/null; then
@@ -71,8 +70,7 @@ sudo snap install \
   mysql-workbench-community \
   breaktimer \
   spotify \
-  telegram-desktop \
-  /
+  telegram-desktop
 
 printf "\n★ installing pipx\n"
 if ! command -v pipx $ >/dev/null; then
