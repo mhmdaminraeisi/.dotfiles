@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# TODO: remove sudo
+
 trap "echo; exit" INT
 
 create() {
@@ -147,7 +149,6 @@ settings=(
   "org.gnome.settings-daemon.plugins.media-keys screensaver []"
   "org.gnome.shell favorite-apps ['firefox.desktop','org.gnome.Nautilus.desktop','org.gnome.Terminal.desktop','code.desktop','telegram-desktop_telegram-desktop.desktop']"
   "org.gnome.shell.app-switcher current-workspace-only true"
-  "org.gnome.shell.extensions.appindicator tray-pos right"
   "org.gnome.shell.keybindings open-application-menu []"
   "org.gnome.tweaks show-extensions-notice false"
   "org.gtk.Settings.FileChooser clock-format '12h'"
@@ -169,11 +170,15 @@ for setting in "${dconfSettings[@]}"; do
 done
 
 printf "\n★ setup zsh\n"
-curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash
-rm "$HOME/.zshrc" "$HOME/.aliases" "$HOME/.functions"
+if command -v fnm $ >/dev/null; then
+  curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash
+  rm "$HOME/.zshrc" "$HOME/.aliases" "$HOME/.functions"
+fi
+
 ln -s "$PWD/.zshrc" "$HOME/.zshrc"
 ln -s "$PWD/.aliases" "$HOME/.aliases"
 ln -s "$PWD/.functions" "$HOME/.functions"
+
 if command -v fnm $ >/dev/null; then
   fnm completions --shell zsh | create "$HOME/.oh-my-zsh/completions/_fnm"
 fi
