@@ -102,8 +102,7 @@ gext --filesystem install \
   spotify-controller@koolskateguy89 \
   user-theme@gnome-shell-extensions.gcampax.github.com \
   Vitals@CoreCoding.com \
-  window-app-switcher-on-active-monitor@NiKnights.com \
-  /
+  window-app-switcher-on-active-monitor@NiKnights.com
 
 printf "\n★ changing gnome settings\n"
 settings=(
