@@ -158,14 +158,16 @@ done
 
 printf "\n★ setup zsh\n"
 curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash
+rm "$HOME/.zshrc" "$HOME/.aliases" "$HOME/.functions"
 ln -s .zshrc "$HOME/.zshrc"
-ls -s .aliases "$HOME/.aliases"
-ls -s .functions "$HOME/.functions"
+ln -s .aliases "$HOME/.aliases"
+ln -s .functions "$HOME/.functions"
 if command -v fnm $ >/dev/null; then
   fnm completions --shell zsh | create "$HOME/.oh-my-zsh/completions/_fnm"
 fi
 
 printf "\n★ setup git\n"
+rm "$HOME/.gitconfig"
 ln -s .gitconfig "$HOME/.gitconfig"
 
 printf "\n★ adding fonts\n"
