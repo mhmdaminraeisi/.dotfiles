@@ -34,7 +34,9 @@ sudo dnf install -y \
   obs-studio \
   snapd \
   python3-pip \
-  neovim
+  neovim \
+  gparted \
+  tmux
 
 printf "\n★ installing vscode\n"
 if ! command -v code $ >/dev/null; then
@@ -48,6 +50,11 @@ printf "\n★ installing fnm and node\n"
 if ! command -v fnm $ >/dev/null; then
   curl -fsSL https://fnm.vercel.app/install | bash
   fnm install --lts
+fi
+
+printf "\n★ installing bun\n"
+if ! command -v bun $ >/dev/null; then
+  curl -fsSL https://bun.sh/install | bash
 fi
 
 printf "\n★ installing docker\n"
@@ -183,6 +190,13 @@ fi
 printf "\n★ setup git\n"
 rm "$HOME/.gitconfig"
 ln -s "$PWD/.gitconfig" "$HOME/.gitconfig"
+
+printf "\n★ setup tmux\n"
+ln -s "$PWD/.tmux.conf" "$HOME/.tmux.conf"
+tpmFile="$HOME/.tmux/plugins/tpm"
+if ! test -f "$tmpFile"; then
+  git clone https://github.com/tmux-plugins/tpm "$tpmFile"
+fi
 
 printf "\n★ adding fonts\n"
 

@@ -13,7 +13,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration -----------------------------------------------------------
 
-export EDITOR=code
+export EDITOR=lvim
 
 # aliases
 [[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
@@ -30,4 +30,11 @@ export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
+# capacitor
 export CAPACITOR_ANDROID_STUDIO_PATH=$HOME/android-studio/bin/studio.sh
+
+# bun
+export PATH="$HOME/.bun/bin:$PATH"
+
+# lvim
+export PATH=$PATH:$HOME/.local/bin/lvim
