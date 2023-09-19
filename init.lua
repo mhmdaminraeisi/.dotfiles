@@ -83,10 +83,11 @@ require('lazy').setup({
       -- Automatically install LSPs to stdpath for neovim
       { 'williamboman/mason.nvim', config = true },
       'williamboman/mason-lspconfig.nvim',
+      'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
+      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -599,14 +600,8 @@ local servers = {
       }
     }
   },
-  cspell = {},
   bashls = {},
   cssls = {},
-  eslint_d = {},
-  prettierd = {},
-  shellcheck = {},
-  shfmt = {},
-  sqlfmt = {},
   sqlls = {},
   lua_ls = {
     Lua = {
@@ -639,6 +634,20 @@ mason_lspconfig.setup_handlers {
       filetypes = (servers[server_name] or {}).filetypes,
     }
   end
+}
+
+require('mason-tool-installer').setup {
+  ensure_installed = {
+    -- Linters
+    'cspell',
+    'eslint_d',
+    'shellcheck',
+
+    -- Formatters
+    'prettierd',
+    'shfmt',
+    'sqlfmt'
+  }
 }
 
 -- [[ Configure nvim-cmp ]]
