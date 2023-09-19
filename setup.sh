@@ -36,7 +36,11 @@ sudo dnf install -y \
   python3-pip \
   neovim \
   gparted \
-  tmux
+  tmux \
+  make \
+  gcc \
+  ripgrep \
+  fd-find
 
 printf "\n★ installing vscode\n"
 if ! command -v code $ >/dev/null; then
@@ -194,8 +198,15 @@ ln -s "$PWD/.gitconfig" "$HOME/.gitconfig"
 printf "\n★ setup tmux\n"
 ln -s "$PWD/.tmux.conf" "$HOME/.tmux.conf"
 tpmFile="$HOME/.tmux/plugins/tpm"
-if ! test -f "$tmpFile"; then
+if ! test -f "$tpmFile"; then
   git clone https://github.com/tmux-plugins/tpm "$tpmFile"
+fi
+
+printf "\n★ setup neovim\n"
+initLuaFile="$HOME/.config/nvim/init.lua"
+if ! test -f "$initLuaFile"; then
+  mkdir -p "$HOME/.config/nvim"
+  ln -s "$PWD/init.lua" "$initLuaFile"
 fi
 
 printf "\n★ adding fonts\n"
