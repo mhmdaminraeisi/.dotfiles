@@ -166,9 +166,13 @@ for setting in "${settings[@]}"; do
   gsettings set $setting
 done
 
+printf "\n★ adding fonts\n"
+mkdir "$HOME/.fonts"
+ln -s "$PWD/.fonts/*" "$HOME/.local/share/fonts"
+
 printf "\n★ changing dconf settings\n"
 dconfSettings=(
-  "font \"'Monospace 14'\""
+  "font \"'VazirCodeHack Nerd Font 14'\""
   "custom-command \"'zsh'\""
   "use-custom-command \"true\""
   "use-system-font \"false\""
@@ -208,7 +212,5 @@ if ! test -f "$initLuaFile"; then
   mkdir -p "$HOME/.config/nvim"
   ln -s "$PWD/init.lua" "$initLuaFile"
 fi
-
-printf "\n★ adding fonts\n"
 
 printf "\n★ interactive session ★\n"
