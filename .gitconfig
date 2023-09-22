@@ -1,7 +1,23 @@
 [init]
 	defaultBranch = main
+
 [core]
-	editor = code --wait
+	editor = nvim
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	light = false
+
+[merge]
+	conflictstyle = diff3
+
+[diff]
+	colorMoved = default
+
 [user]
 	email = amir77mafi@gmail.com
 	name = Amirhossein Mafi

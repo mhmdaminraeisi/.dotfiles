@@ -40,7 +40,8 @@ sudo dnf install -y \
   make \
   gcc \
   ripgrep \
-  fd-find
+  fd-find \
+  git-delta
 
 printf "\n★ installing vscode\n"
 if ! command -v code $ >/dev/null; then
@@ -211,6 +212,13 @@ initLuaFile="$HOME/.config/nvim/init.lua"
 if ! test -f "$initLuaFile"; then
   mkdir -p "$HOME/.config/nvim"
   ln -s "$PWD/init.lua" "$initLuaFile"
+fi
+
+printf "\n★ setup lazygit\n"
+if ! command -v lazygit $ >/dev/null; then
+  ln -s "$PWD/lazygit.yml" "$HOME/.config/lazygit/config.yml"
+  sudo dnf copr enable atim/lazygit -y
+  sudo dnf install lazygit -y
 fi
 
 printf "\n★ interactive session ★\n"
