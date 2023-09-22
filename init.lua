@@ -309,6 +309,15 @@ require('lazy').setup({
               }
             end
           },
+          css = {
+            function()
+              return {
+                exe = "prettierd",
+                args = { vim.api.nvim_buf_get_name(0) },
+                stdin = true
+              }
+            end
+          },
         }
       }
     end
@@ -332,6 +341,28 @@ require('lazy').setup({
   },
   {
     'christoomey/vim-tmux-navigator'
+  },
+  {
+    'kevinhwang91/nvim-ufo',
+    dependencies = {
+      'kevinhwang91/promise-async',
+      {
+        "luukvbaal/statuscol.nvim",
+        config = function()
+          local builtin = require("statuscol.builtin")
+          require("statuscol").setup(
+            {
+              relculright = true,
+              segments = {
+                { text = { builtin.foldfunc },    click = "v:lua.ScFa" },
+                { text = { "%s" },                click = "v:lua.ScSa" },
+                { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" }
+              }
+            }
+          )
+        end
+      }
+    }
   }
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
@@ -398,6 +429,13 @@ vim.o.shiftwidth = 2
 vim.o.autoindent = true
 vim.o.smartindent = true
 
+-- folding
+vim.o.foldcolumn = '1'
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+
 -- [[ Basic Keymaps ]]
 vim.keymap.set('n', 's', ':w<cr>')
 
@@ -408,6 +446,10 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+-- ufo folding
+vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -587,7 +629,15 @@ end
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
 local servers = {
-  tsserver = {},
+  tsserver = {
+    init_options = {
+      preferences = {
+        -- other preferences...
+        -- importModuleSpecifierPreference = 'non-relative',
+        -- importModuleSpecifierEnding = 'minimal',
+      },
+    }
+  },
   html = {},
   tailwindcss = {
     settings = {
@@ -616,6 +666,10 @@ require('neodev').setup()
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.foldingRange = {
+  dynamicRegistration = false,
+  lineFoldingOnly = true
+}
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- Ensure the servers above are installed
@@ -635,6 +689,7 @@ mason_lspconfig.setup_handlers {
     }
   end
 }
+require('ufo').setup()
 
 require('mason-tool-installer').setup {
   ensure_installed = {
