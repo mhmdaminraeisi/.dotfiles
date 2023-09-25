@@ -170,7 +170,7 @@ for setting in "${settings[@]}"; do
 done
 
 printf "\n★ adding fonts\n"
-mkdir "$HOME/.fonts"
+mkdir "$HOME/.local/share/fonts"
 ln -s "$PWD/.fonts/*" "$HOME/.local/share/fonts"
 
 printf "\n★ changing dconf settings\n"
@@ -185,7 +185,7 @@ for setting in "${dconfSettings[@]}"; do
 done
 
 printf "\n★ setup zsh\n"
-if command -v fnm $ >/dev/null; then
+if command -v zsh $ >/dev/null; then
   curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash
   rm "$HOME/.zshrc" "$HOME/.aliases" "$HOME/.functions"
 fi
