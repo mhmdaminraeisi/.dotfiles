@@ -21,3 +21,5 @@
 [user]
 	email = amir77mafi@gmail.com
 	name = Amirhossein Mafi
+[pull]
+	rebase = true

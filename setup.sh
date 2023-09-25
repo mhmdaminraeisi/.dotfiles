@@ -75,14 +75,16 @@ if ! command -v gh $ >/dev/null; then
 fi
 
 printf "\n★ installing snap packages\n"
-sudo ln -s /var/lib/snapd/snap /snap
-sudo snap install \
-  skype \
-  motrix \
-  mysql-workbench-community \
-  breaktimer \
-  spotify \
-  telegram-desktop
+if [ ! -d "/snap" ]; then
+  sudo ln -s "/var/lib/snapd/snap" "/snap"
+fi
+sudo snap install skype
+sudo snap install motrix
+sudo snap install mysql-workbench-community
+sudo snap install breaktimer
+sudo snap install spotify
+sudo snap install telegram-desktop
+sudo snap install obsidian --classic
 
 printf "\n★ installing pipx\n"
 if ! command -v pipx $ >/dev/null; then
