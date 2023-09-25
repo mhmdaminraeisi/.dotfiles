@@ -13,7 +13,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration -----------------------------------------------------------
 
-export EDITOR=lvim
+export EDITOR=nvim
 
 # aliases
 [[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
@@ -35,6 +35,3 @@ export CAPACITOR_ANDROID_STUDIO_PATH=$HOME/android-studio/bin/studio.sh
 
 # bun
 export PATH="$HOME/.bun/bin:$PATH"
-
-# lvim
-export PATH=$PATH:$HOME/.local/bin/lvim

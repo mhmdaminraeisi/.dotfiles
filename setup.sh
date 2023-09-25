@@ -28,6 +28,7 @@ sudo dnf install -y \
   zsh \
   mpv \
   gimp \
+  git \
   gnome-extensions-app \
   gnome-tweaks \
   inkscape \
@@ -171,7 +172,7 @@ done
 
 printf "\n★ adding fonts\n"
 mkdir "$HOME/.local/share/fonts"
-ln -s "$PWD/.fonts/*" "$HOME/.local/share/fonts"
+ln -s "$PWD"/.fonts/* "$HOME/.local/share/fonts"
 
 printf "\n★ changing dconf settings\n"
 dconfSettings=(
