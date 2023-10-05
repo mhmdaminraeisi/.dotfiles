@@ -121,48 +121,21 @@ gext --filesystem install \
 
 printf "\n★ changing gnome settings\n"
 settings=(
-  "org.gnome.TextEditor spellcheck false"
   "org.gnome.calculator show-thousands true"
-  "org.gnome.desktop.input-sources sources [('xkb','us'),('xkb','ir')]"
   "org.gnome.desktop.input-sources per-window true"
-  "org.gnome.desktop.input-sources xkb-options ['caps:escape_shifted_capslock']"
   "org.gnome.desktop.interface clock-format '12h'"
   "org.gnome.desktop.interface clock-show-seconds true"
   "org.gnome.desktop.interface color-scheme 'prefer-dark'"
   "org.gnome.desktop.interface gtk-theme 'Adwaita-dark'"
-  "org.gnome.desktop.peripherals.touchpad natural-scroll false"
-  "org.gnome.desktop.peripherals.touchpad tap-to-click true"
   "org.gnome.desktop.search-providers disabled ['org.gnome.Characters.desktop']"
-  "org.gnome.desktop.wm.keybindings activate-window-menu []"
-  "org.gnome.desktop.wm.keybindings minimize []"
-  "org.gnome.desktop.wm.keybindings move-to-monitor-down ['<Shift><Super>j']"
-  "org.gnome.desktop.wm.keybindings move-to-monitor-left []"
-  "org.gnome.desktop.wm.keybindings move-to-monitor-right []"
-  "org.gnome.desktop.wm.keybindings move-to-monitor-up ['<Shift><Super>k']"
-  "org.gnome.desktop.wm.keybindings move-to-workspace-left ['<Shift><Super>h']"
-  "org.gnome.desktop.wm.keybindings move-to-workspace-right ['<Shift><Super>l']"
-  "org.gnome.desktop.wm.keybindings switch-applications []"
-  "org.gnome.desktop.wm.keybindings switch-applications-backward []"
-  "org.gnome.desktop.wm.keybindings switch-input-source ['<Super>space']"
-  "org.gnome.desktop.wm.keybindings switch-input-source-backward ['<Shift><Super>space']"
-  "org.gnome.desktop.wm.keybindings switch-to-workspace-left ['<Super>h']"
-  "org.gnome.desktop.wm.keybindings switch-to-workspace-right ['<Super>l']"
-  "org.gnome.desktop.wm.keybindings switch-windows ['<Alt>Tab']"
-  "org.gnome.desktop.wm.keybindings switch-windows-backward ['<Shift><Alt>Tab']"
   "org.gnome.desktop.wm.preferences button-layout 'appmenu:minimize,maximize,close'"
   "org.gnome.mutter center-new-windows true"
   "org.gnome.mutter dynamic-workspaces false"
   "org.gnome.mutter workspaces-only-on-primary false"
   "org.gnome.rhythmbox.plugins seen-plugins ['grilo','rb','webremote','replaygain','rbzeitgeist','pythonconsole','notification','mtpdevice','ipod','fmradio','dbus-media-server','daap','cd-recorder','audioscrobbler','artsearch','im-status','listenbrainz','lyrics','magnatune']"
   "org.gnome.rhythmbox.rhythmdb locations ['file://$HOME/Music']"
-  "org.gnome.settings-daemon.plugins.media-keys next ['<Super>F12']"
-  "org.gnome.settings-daemon.plugins.media-keys play ['<Super>F10']"
-  "org.gnome.settings-daemon.plugins.media-keys previous ['<Super>F11']"
-  "org.gnome.settings-daemon.plugins.media-keys screensaver []"
   "org.gnome.shell favorite-apps ['firefox.desktop','org.gnome.Nautilus.desktop','org.gnome.Terminal.desktop','code.desktop','telegram-desktop_telegram-desktop.desktop']"
   "org.gnome.shell.app-switcher current-workspace-only true"
-  "org.gnome.shell.keybindings open-application-menu []"
-  "org.gnome.tweaks show-extensions-notice false"
   "org.gtk.Settings.FileChooser clock-format '12h'"
 )
 for setting in "${settings[@]}"; do
@@ -188,12 +161,12 @@ done
 printf "\n★ setup zsh\n"
 if command -v zsh $ >/dev/null; then
   curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash
-  rm "$HOME/.zshrc" "$HOME/.aliases" "$HOME/.functions"
+  rm "$HOME/.zshrc" #### "$HOME/.aliases" "$HOME/.functions"
 fi
 
 ln -s "$PWD/.zshrc" "$HOME/.zshrc"
-ln -s "$PWD/.aliases" "$HOME/.aliases"
-ln -s "$PWD/.functions" "$HOME/.functions"
+#### ln -s "$PWD/.aliases" "$HOME/.aliases"
+#### ln -s "$PWD/.functions" "$HOME/.functions"
 
 if command -v fnm $ >/dev/null; then
   fnm completions --shell zsh | create "$HOME/.oh-my-zsh/completions/_fnm"
@@ -208,13 +181,6 @@ ln -s "$PWD/.tmux.conf" "$HOME/.tmux.conf"
 tpmFile="$HOME/.tmux/plugins/tpm"
 if ! test -f "$tpmFile"; then
   git clone https://github.com/tmux-plugins/tpm "$tpmFile"
-fi
-
-printf "\n★ setup neovim\n"
-initLuaFile="$HOME/.config/nvim/init.lua"
-if ! test -f "$initLuaFile"; then
-  mkdir -p "$HOME/.config/nvim"
-  ln -s "$PWD/init.lua" "$initLuaFile"
 fi
 
 printf "\n★ setup lazygit\n"

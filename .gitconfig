@@ -2,7 +2,7 @@
 	defaultBranch = main
 
 [core]
-	editor = nvim
+	editor = nano
 	pager = delta
 
 [interactive]
@@ -19,7 +19,5 @@
 	colorMoved = default
 
 [user]
-	email = amir77mafi@gmail.com
-	name = Amirhossein Mafi
-[pull]
-	rebase = true
+	email = mohammadaminraeisi@outlook.com
+	name = MohammadAmin Raeisi
