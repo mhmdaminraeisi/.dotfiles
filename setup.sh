@@ -68,12 +68,12 @@ if ! command -v docker $ >/dev/null; then
   curl -fsSL https://get.docker.com | bash
 fi
 
-printf "\n★ installing github cli\n"
-if ! command -v gh $ >/dev/null; then
-  sudo dnf install -y 'dnf-command(config-manager)'
-  sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
-  sudo dnf install -y gh
-fi
+#printf "\n★ installing github cli\n"
+#if ! command -v gh $ >/dev/null; then
+#  sudo dnf install -y 'dnf-command(config-manager)'
+#  sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
+#  sudo dnf install -y gh
+#fi
 
 printf "\n★ installing snap packages\n"
 if [ ! -d "/snap" ]; then
@@ -143,20 +143,20 @@ for setting in "${settings[@]}"; do
   gsettings set $setting
 done
 
-printf "\n★ adding fonts\n"
-mkdir "$HOME/.local/share/fonts"
-ln -s "$PWD"/.fonts/* "$HOME/.local/share/fonts"
-
-printf "\n★ changing dconf settings\n"
-dconfSettings=(
-  "font \"'VazirCodeHack Nerd Font 14'\""
-  "custom-command \"'zsh'\""
-  "use-custom-command \"true\""
-  "use-system-font \"false\""
-)
-for setting in "${dconfSettings[@]}"; do
-  eval "dconf write /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/$setting"
-done
+#printf "\n★ adding fonts\n"
+#mkdir "$HOME/.local/share/fonts"
+#ln -s "$PWD"/.fonts/* "$HOME/.local/share/fonts"
+#
+#printf "\n★ changing dconf settings\n"
+#dconfSettings=(
+#  "font \"'VazirCodeHack Nerd Font 14'\""
+#  "custom-command \"'zsh'\""
+#  "use-custom-command \"true\""
+#  "use-system-font \"false\""
+#)
+#for setting in "${dconfSettings[@]}"; do
+#  eval "dconf write /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/$setting"
+#done
 
 printf "\n★ setup zsh\n"
 if command -v zsh $ >/dev/null; then
@@ -183,11 +183,11 @@ if ! test -f "$tpmFile"; then
   git clone https://github.com/tmux-plugins/tpm "$tpmFile"
 fi
 
-printf "\n★ setup lazygit\n"
-if ! command -v lazygit $ >/dev/null; then
-  ln -s "$PWD/lazygit.yml" "$HOME/.config/lazygit/config.yml"
-  sudo dnf copr enable atim/lazygit -y
-  sudo dnf install lazygit -y
-fi
+#printf "\n★ setup lazygit\n"
+#if ! command -v lazygit $ >/dev/null; then
+#  ln -s "$PWD/lazygit.yml" "$HOME/.config/lazygit/config.yml"
+#  sudo dnf copr enable atim/lazygit -y
+#  sudo dnf install lazygit -y
+#fi
 
 printf "\n★ interactive session ★\n"
